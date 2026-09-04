@@ -1,0 +1,14 @@
+[Unit]
+Description=Daily WebMenue -> Google Calendar sync
+
+[Timer]
+# Every day at 06:30 local time, with jitter so we do not hammer the site at
+# the same second as everyone else.
+OnCalendar=*-*-* 06:30:00
+RandomizedDelaySec=15m
+# Catch up after the machine was asleep or off at the scheduled time.
+Persistent=true
+Unit=webmenue-sync.service
+
+[Install]
+WantedBy=timers.target

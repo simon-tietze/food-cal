@@ -1,0 +1,660 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head><meta charset="iso-8859-15" /><meta http-equiv="x-ua-compatible" content="ie=edge" /><title>
+	WebMenü
+</title><meta name="viewport" content="width=device-width, initial-scale=1" /><link rel="shortcut icon" href="favicon.ico" /><link rel="manifest" href="manifest.webmanifest" /> 
+	<script src="js/a2hs.js?cc=638356508511113961" defer></script>
+	<meta name="theme-color" content="#00a0f5" /><meta name="mobile-web-app-capable" content="yes" /><link rel="icon" type="image/png" href="favicon.png" sizes="32x32" /><link rel="icon" type="image/png" href="favicon.png" sizes="96x96" /><link rel="icon" type="image/png" href="favicon.png" sizes="170x170" />
+	<meta name="application-name" content="WebMenü">
+
+	
+	<meta name="apple-mobile-web-app-capable" content="yes" /><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="apple-mobile-web-app-title" content="WebMenü" />
+	<link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" /><link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+
+	
+	<meta name="msapplication-TileImage" content="/webmenue/mstile-144x144.png" />
+	<meta name="msapplication-TileColor" content="#3372DF" /><meta name="msapplication-navbutton-color" content="#00a0f5" />
+	<meta name="msapplication-starturl" content="https://wiaf.webmenue.info/webmenue/login.aspx" />
+
+  <meta name="robots" content="noindex, nofollow" /><meta http-equiv="expires" content="0" /><meta http-equiv="cache-control" content="no-cache" /><meta http-equiv="pragma" content="no-cache" /><meta http-equiv="content-language" content="de" /><meta http-equiv="Content-Script-Type" content="text/javascript" /><meta http-equiv="Content-Style-Type" content="text/css" /><link rel="schema.DC" href="http://dublincore.org/2008/01/14/dcelements.rdf#" /><link rel="schema.DCTERMS" href="http://dublincore.org/2008/01/14/dcterms.rdf#" />
+
+	<meta name="DC.creator" content="NTConsult Software & Service GmbH" />
+	<meta name="DC.publisher" content="ntc.software" />
+	<meta name="DC.rights" content="ntc.software" />
+	<meta name="DC.contributor" content="NTConsult Software & Service GmbH" />
+	<meta name="DC.Description" content="Willkommen bei WebMenü, dem schnellen, einfachen und bequemen Menübestellsystem." /><meta name="DC.language" content="de" />
+	<meta name="DC.title" lang="de" content="WebMenü" />
+  <meta name="DC.type" content="Text" /><meta name="DC.format" content="text/html" />
+	<meta name="DC.identifier" content="https://wiaf.webmenue.info/webmenue" />
+
+	<meta name="generator" content="NTC Webmenu 2023.11.15" />
+
+  <meta name="language" content="German, de, deutsch" />
+	<meta name="author" content="NTConsult Software & Service GmbH" />
+	<meta name="publisher" content="ntc.software" />
+	<meta name="copyright" content="ntc.software" />
+	<meta name="contributor" content="NTConsult Software & Service GmbH" />
+	<meta name="description" content="Willkommen bei WebMenü, dem schnellen, einfachen und bequemen Menübestellsystem." />
+	<meta name="title" lang="de" content="WebMenü" />
+
+	<link href="css/webmenu.min.css?cc=638356508511113961" rel="stylesheet" />
+
+  
+	
+
+
+	<script>
+		if (window.ntcWebMenu === undefined) ntcWebMenu = {
+			ready: function (callback) { document.addEventListener('DOMContentLoaded', callback); }
+		};
+
+		var wmconfig = {
+			sessionTimeout: 3605,
+			dummy: 0,
+			unreliable: {
+				isNTCAdmin: ('False' === 'True')
+			},
+			currentSiteName: 'login'
+		};
+
+		var themes = [
+			{
+				name: 'NTC'
+				, class: 'theme-ntc'
+				, isDefault: true
+			}, {
+				name: 'Dark'
+				, class: 'theme-dark'
+				, isDefault: false
+			}, {
+				name: 'Light'
+				, class: 'theme-light'
+				, isDefault: false
+			},
+			{
+				name: 'NTC2'
+				, class: 'theme-ntc2'
+				, isDefault: false
+			}
+		];
+	</script>
+</head>
+<body class="theme-ntc navi-not-available login no-overlay release-config o-noobject">
+<script>
+	
+	(function(doc, wndw) {
+		if (typeof (Storage) === "undefined") return;
+
+		var theme = JSON.parse(window.localStorage.getItem('wm.theme')) || themes.find(function (x) { return x.isDefault === true; });
+
+		var body = doc.getElementsByTagName('body')[0];
+		var classes = body.className.split(' ');
+		var currentThemes = themes.filter(value => classes.includes(value.class));
+		var oldTheme = currentThemes.length ? currentThemes[0] : undefined;
+
+		body.className = classes.map(item => oldTheme !== undefined && item === oldTheme.class ? theme.class : item ).join(' ');
+	})(document, window);
+</script>
+	<form method="post" action="./login.aspx?err=5" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="E9AEE5B5" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="Lft8toqNhIYjpHRKNbePXFogHRDvt+ez/u6CaCk69KB5V4mYEQWabsXXA9Q5Qkgv4yI9VUYkReaXA0TNS4h74rPJ8vhQ+mA41ouqdVrm+zPCvF6tC3q+qfDiCoWZwOvUzH2LWikZdZRWMDEbVHi4rEJIG0c=" />
+	
+
+	
+	<nav id="ntc-main-navbar" class="navbar">
+
+		
+		<div class="ntc-nav-toggle-burger">
+			<a href="javascript:void(0);" data-target="leftsidebar" class="sidenav-trigger">
+				<span class="icon"></span>
+			</a>
+		</div>
+
+
+		
+		<div id="ntc-logo-main" onclick="document.location = 'login.aspx';">
+			
+			<img alt="Logo" id="imgheader" src="userfiles\operator.gif?anticache=636263780480000000" />
+			
+		</div>
+
+		<div class="webmenu-stuff">
+
+
+			
+		</div>
+
+	</nav>
+	
+
+
+	
+	<section id="sidebars" class="ntc-main-section">
+		
+		
+
+		
+		
+	</section>
+		
+
+	
+	<section id="content" class="ntc-main-section content">
+		<div class="container-fluid">
+			<div id="ntc-page-content" class="wmsubpage ntc-module-login">
+				
+
+	
+	<div class="error">
+		
+		<p>Sie müssen ein Objekt auswählen, um den Speiseplan einzusehen</p>
+		
+	</div>
+	
+	<div class="ntc-box" id="loginbox">
+		<div class="title">
+			
+			
+			
+			
+			
+		</div>
+
+		
+		<div class="login-inputs">
+	
+			<div class="input-field ntc-field-login">
+				<input name="ctl00$MainContent$txtLogin" type="text" id="MainContent_txtLogin" tabindex="1" />
+				<label for="MainContent_txtLogin">Benutzername</label>
+			</div>
+
+			<div class="input-field ntc-field-password">
+				<input name="ctl00$MainContent$txtPassword" type="password" id="MainContent_txtPassword" tabindex="2" AutoComplete="off" />
+				<label for="MainContent_txtPassword">Passwort</label>
+			</div>
+			
+
+			
+			
+
+			<div id="login-buttons">
+				<a id="MainContent_btnlogin" class="ntc-login-btn" href="javascript:__doPostBack(&#39;ctl00$MainContent$btnlogin&#39;,&#39;&#39;)">
+		          <span class="title">Login</span>
+              <span class="icon"></span>
+				</a>
+
+				<span class="ntc-create-account">Sie haben noch kein Konto? Legen Sie <a href="account.aspx?do=new" class="ntc-register-btn">hier</a> eins an.
+				</span>
+
+			</div>
+
+
+		
+</div>
+
+		<div id="underLogin">
+			
+			<a href="account.aspx?do=forgotpw" class="ntc-forgotpw-btn">Passwort vergessen?</a>
+			
+			<div class="preview-billoffare">
+				<a class="modal-trigger ntc-showbilloffarepreview-btn" data-target="modal-billoffarepreview">Speiseplanvorschau</a>
+
+				
+			</div>
+			
+
+
+			<div id="installContainer" class="hidden container-install-pwa-wm">
+				<div class="content">
+					<span class="description">Für einen schnellen Zugriff, fügen Sie einfach das WebMenü zu Ihrem Startbildschirm hinzu:
+					</span>
+
+					<button id="butInstall" class="btn-install-pwa-wm" type="button">
+						WebMenü installieren
+					</button>
+
+					
+				</div>
+			</div>
+
+
+			
+			<div id="operatortext">
+				<p><p style="text-align:center">Hier geht es zum Hilfeportal   > <a href="https://ntconsult.weclapp.com/webapp/view/helpdesk/portal/webmenuehilfe/home.page" target="_blank">Link</a></p></p>
+
+			</div>
+			
+
+
+
+			<div class="legal-banner">
+				
+				<ul>
+					<li><a href="contact.aspx">Kontakt</a></li>
+					<li><a href="agb.aspx">AGB</a></li>
+					<li><a href="imprint.aspx">Impressum</a></li>
+					<li><a href="datenschutz.aspx">Datenschutz</a></li>
+				</ul>
+			</div>
+
+
+		</div>
+	</div>
+
+
+	
+	<div id="modal-billoffarepreview" class="modal ntc-modal-fixed-footer">
+		<div class="modal-content">
+			<p>
+				Bitte wählen Sie eine Schule aus, um den Speiseplan einzusehen.
+			</p>
+
+
+			
+					<ul class="guest-objects">
+						
+					
+						<li>
+							<a href="?guestobj=ccdd6d19-64d2-495f-bd60-d785bf0d1032">Gemeinschaftsschule Anton-Hansen</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=4d0764db-1a70-4e1f-8957-a68b1c192fb1">Gemeinschaftsschule Freisen</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=3f0893da-b450-458d-9102-a8a180f7621b">Gemeinschaftsschule Marpingen</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=3ee0c437-1122-43a2-800a-7633c5a0d567">Gemeinschaftsschule Saarbrücken-Bruchwiese</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=6502c6bb-56da-4df3-bd61-c06d81c02b4d">Gemeinschaftsschule Schaumberg-Tholey</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=a2eef72b-97da-4bfa-a8ad-abb85736a331">Geschwister-Scholl-Schule - Gemeinschaftsschule Bl</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=087b0cfa-2cc8-488c-8d39-0f44dbf7bbdf">Grundschule Bliesen</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=b2eb00bb-5f01-493b-855c-f040af3a2422">Grundschule Freisen-Oberkirchen</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=9b0f5c4e-a936-483f-a47c-d9f522fac30c">Grundschule Friedrichsthal - Bismarckschule</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=39881479-165f-4be4-ae05-bbbcfbcd2018">Grundschule Fürth</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=0d4557a2-3941-43ae-a4de-288066a8ec66">Grundschule Gonnesweiler - Grundschule der Gem. No</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=f4780e8a-5e0d-400c-9e7d-f211d18fb62a">Grundschule Hasborn-Dautweiler, Schule</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=ea20f14a-6469-4005-8e19-23f23bcbf9f5">Grundschule Hasborn-Dautweiler, Schwesternhaus</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=a1246bcf-bdd3-4080-8b75-f67038dfeaa1">Grundschule Neumünster</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=09649ce4-0c6b-4ea3-8cb3-f33bcff91c01">Grundschule Oberlinxweiler</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=7bc6b955-8ede-479d-90a0-b155107b1db7">Grundschule Oberlinxweiler - Dep. Niederlinxweiler</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=11abfb77-d5a6-48c1-be5e-bd85397d34bf">Grundschule Oberthal</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=6e71550f-8821-4146-84a4-64c8b8b6927d">Grundschule Sötern - Grundschule der Gem. Nohfelde</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=fca15663-89e4-410d-9edc-1d22672d6307">Grundschule Theley</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=a3a62e71-0824-4f7f-8abd-3d9b53179bf6">Grundschule Tholey</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=4a5111ed-41a0-47e8-b242-762f278766df">Gymnasium am Krebsberg</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=8c418429-f0f2-4d64-875b-fbc69e56743c">Gymnasium Wendalinum des Landkreises St. Wendel</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=9acd72ad-bf93-4b60-91e9-6fbef4bdbc4e">Hoferkopfschule - Grundschule Bildstock</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=46b61e6f-d6f0-4867-8a34-8413628ff1d6">Marienschule - Grundschule Namborn</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=4f6f5640-1963-4604-ae55-8fb7b6960f25">Mühlbachschule - Gemeinschaftsschule Schiffweiler</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=0c2fd300-0a3c-40c4-9140-7812198caf62">Striedtschule - Grundschule Wemmetsweiler</a>
+						</li>
+					
+				
+					
+						<li>
+							<a href="?guestobj=95b11c50-1589-489a-bdf7-e157770ad9a8">WIAF Bistro "La Tella"</a>
+						</li>
+					
+				
+					</ul>
+				
+		</div>
+		<div class="modal-footer">
+			<a href="javascript:void(0);" class="ntc-modal-close ntc-dialog-btn-close">
+				<span class="icon"></span>
+				<span class="title">Schließen</span>
+			</a>
+		</div>
+	</div>
+	
+      </div>
+    </div>
+
+		
+	</section>
+	<section class="ntc-main-section info-footer">
+	</section>
+
+	</form>
+	<h2 id="id_md5">b896b30edce0b6ef464007824d5a7889</h2>
+
+            
+
+
+	<script src="js/jq.js?cc=638356508511113961" charset="UTF-8"></script>
+	<script src="js/global.min.js?cc=638356508511113961" charset="UTF-8"></script>
+	
+	<script src="js/materialize/dist/materialize.min.js?cc=638356508511113961" charset="UTF-8"></script>
+	
+	<script type="text/javascript" src="js/sites/login.js?cc=638356544518947835"></script>
+
+
+
+
+	<script defer src="/webmenue/js/klaro-no-css.js?cc=638356508511113961"></script>
+<script>
+	wmconfig.cookieconsent = {
+		version: 1,
+		elementID: 'klaro',
+		//styling: {
+		//	theme: ['light', 'top', 'wide'],
+		//},
+		noAutoLoad: false,
+		htmlTexts: true,
+		embedded: false,
+		groupByPurpose: true,
+		storageMethod: 'cookie',
+		cookieName: 'ntc.webmenu.cookieconsent',
+		cookieExpiresAfterDays: 365,
+		//cookieDomain: '.github.com',
+		//cookiePath: '/',
+		default: false,
+		mustConsent: false,
+		acceptAll: true,
+		hideDeclineAll: true,
+		hideLearnMore: false,
+		noticeAsModal: false,
+		disablePoweredBy: true,
+		//additionalClass: 'my-klaro',
+		lang: 'de',
+		translations: {
+			zz: {
+				// translationsed defined under the 'zz' language code act as default translations.
+				privacyPolicyUrl: 'http://ntc.software/datenschutz.html',
+			},
+			de: {
+				consentNotice: {
+					changeDescription: "Seit Ihrem letzten Besuch gab es Änderungen, bitte erneuern Sie Ihre Zustimmung.",
+					description: "Diese Website nutzt Cookies, um bestmögliche Funktionalität bieten zu können.",
+					imprint: {
+						name: "Impressum"
+					},
+					learnMore: "Anpassen",
+					privacyPolicy: {
+						name: "Datenschutzerklärung"
+					},
+					testing: "Testmodus!"
+				},
+				decline: "Ablehnen",
+				ok: "Akzeptieren",
+
+
+				acceptAll: "Alle akzeptieren",
+				acceptSelected: "Ausgewählte akzeptieren",
+				close: "Schließen",
+				consentModal: {
+					title: "Dienste, die wir nutzen möchten",
+					description: 'Hier können Sie einsehen und anpassen, welche Information wir über Sie sammeln.',
+					privacyPolicy: {
+						name: "Datenschutzerklärung",
+						text: "Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}."
+					}
+				},
+
+				contextualConsent: {
+					acceptAlways: "Immer",
+					acceptOnce: "Ja",
+					description: "Möchten Sie von {title} bereitgestellte externe Inhalte laden?"
+				},
+				poweredBy: "Realisiert mit Klaro!",
+				privacyPolicy: {
+					name: "Datenschutzerklärung",
+					text: "Um mehr zu erfahren, lesen Sie bitte unsere {privacyPolicy}."
+				},
+				purposeItem: {
+					service: "Dienst",
+					services: "Dienste"
+				},
+
+				purposes: {
+					essential: {
+						description: "Notwendige Cookies helfen dabei, eine Webseite nutzbar zu machen, indem sie Grundfunktionen wie Seitennavigation und Zugriff auf sichere Bereiche der Webseite ermöglichen. Die Webseite kann ohne diese Cookies nicht richtig funktionieren.",
+						title: "Notwendig"
+					},
+					comfort: {
+						description: "Präferenz-Cookies ermöglichen einer Webseite sich an Informationen zu erinnern, die die Art beeinflussen, wie sich eine Webseite verhält oder aussieht, wie z. B. Ihre bevorzugte Sprache oder die Region in der Sie sich befinden.",
+						title: "Präferenz-Cookies"
+					}
+				},
+
+
+				save: "Speichern",
+				service: {
+					disableAll: {
+						description: "Mit diesem Schalter können Sie alle Dienste aktivieren oder deaktivieren.",
+						title: "Alle Dienste aktivieren oder deaktivieren"
+					},
+					optOut: {
+						description: "Diese Dienste werden standardmäßig geladen (Sie können sich jedoch abmelden)",
+						title: "(Opt-out)"
+					},
+					purpose: "Zweck",
+					purposes: "Zwecke",
+					required: {
+						description: "Dieser Service ist immer erforderlich",
+						title: "(immer erforderlich)"
+					}
+				}
+
+
+			}
+		},
+		services: [
+			
+			{
+				name: 'ntc.webmenu.session',
+				default: true,
+				title: 'WebMenü: Session-Cookie',
+				purposes: ['essential'],
+				cookies: ['WebMenuSessionID'],
+				callback: function (consent, service) { },
+				required: true,
+				optOut: false,
+				onlyOnce: true
+			},
+			{
+				name: 'ntc.webmenu.lastuserlogin',
+				default: true,
+				title: 'WebMenü: Zuletzt angemeldeter Benutzername',
+				purposes: ['comfort'],
+				cookies: ['Webmenu'],
+				callback: function(consent, service) {},
+				required: false,
+				optOut: false,
+				onlyOnce: true
+			}
+
+		]
+	};
+	(window.$ || window.ntcWebMenu.ready)(function () {
+		klaro.render(wmconfig.cookieconsent);
+	});
+	
+</script>
+
+	<script>
+		(window.$ || window.ntcWebMenu.ready)(function () {
+			window.ntcWebMenu.openNav(wmconfig.currentSiteName);
+
+		});
+	</script>
+
+
+		
+		<div id="modal-install-wm-ios" class="modal ntc-modal-fixed-footer">
+			<div class="modal-content">
+				<p>Um das WebMenü auf dem HomeScreen hinzuzufügen führen Sie bitte folgenden Schritte aus:</p>
+				
+				<ul>
+					<li>
+						<div>
+							<img src="images/pwa/ios/01.png" alt="Schritt #1" />
+						</div>
+						<p>Tippen Sie auf das Teilen Symbol und dort sich um öffnenden Menü auf "Zum Home-Bildschirm".</p>
+					</li>
+					
+					<li>
+						<div>
+							<img src="images/pwa/ios/02.png" alt="Schritt #2" />
+						</div>
+						<p>Geben Sie einen Namen für die App ein, z.B. WebMenü.</p>
+					</li>
+					<li>
+						<div>
+							<img src="images/pwa/ios/03.png" alt="Schritt #3" />
+						</div>
+						<p>Fertig</p>
+					</li>
+        </ul>
+        </div>
+		<div class="modal-footer">
+			<a href="javascript:void(0);" class="ntc-modal-close ntc-dialog-btn-close">
+				<span class="icon"></span>
+				<span class="title">Schließen</span>
+			</a>
+		</div>
+		</div>
+
+
+	
+	<div id="modal-control-disabled" class="modal ntc-modal-fixed-footer">
+		<div class="modal-content">
+			<p id="control-disabled-message"></p>
+			
+			<ul id="control-disabled-messages"></ul>
+		</div>
+		<div class="modal-footer">
+			<a href="javascript:void(0);" class="ntc-modal-close ntc-dialog-btn-close">
+				<span class="icon"></span>
+				<span class="title">Schließen</span>
+			</a>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

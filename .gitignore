@@ -1,0 +1,13 @@
+*.json
+!package.json
+!package-lock.json
+creds.json
+majestic-poetry-*.json
+*-key.json
+service-account*.json
+
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.codeboarding/

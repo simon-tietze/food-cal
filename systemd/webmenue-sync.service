@@ -1,0 +1,28 @@
+[Unit]
+Description=Sync WebMenue lunch orders into Google Calendar
+Documentation=file:///path/to/food-cal/README.md
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/path/to/food-cal
+Environment=WEBMENUE_CREDS=/path/to/food-cal/creds.json
+Environment=GOOGLE_SA_KEY=/path/to/food-cal/majestic-poetry-94110-ff3cbc4b22a6.json
+ExecStart=/path/to/food-cal/.venv/bin/python /path/to/food-cal/sync_menu.py --weeks 6
+
+# Logs go to stdout; a non-zero exit marks the unit failed and is visible in
+# `systemctl --user status` and `journalctl`.
+StandardOutput=journal
+StandardError=journal
+
+# Modest hardening; the job only needs outbound HTTPS and its two key files.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryDenyWriteExecute=true
