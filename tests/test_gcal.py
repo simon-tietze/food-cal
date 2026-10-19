@@ -3,7 +3,16 @@ import datetime as dt
 import pytest
 from googleapiclient.errors import HttpError
 
-from wmsync.gcal import GENERATOR_TAG, Plan, build_event, diff, is_retryable
+from wmsync.gcal import (
+    GENERATOR_TAG,
+    Plan,
+    _comparable,
+    _normalise_remote,
+    build_event,
+    diff,
+    event_day,
+    is_retryable,
+)
 from wmsync.models import MenuRecord
 
 RECORD = MenuRecord(
@@ -29,8 +38,8 @@ def http_error(status, reason=None):
 def test_event_shape():
     event = build_event(RECORD)
     assert event["summary"] == "paniertes Schnitzel"
-    assert event["start"] == {"dateTime": "2026-09-01T13:00:00", "timeZone": "Europe/Berlin"}
-    assert event["end"] == {"dateTime": "2026-09-01T13:30:00", "timeZone": "Europe/Berlin"}
+    assert event["start"] == {"date": "2026-09-01"}
+    assert event["end"] == {"date": "2026-09-02"}
     assert "Menü 1" in event["description"]
     assert "Ei, Huhn" in event["description"]
     assert event["extendedProperties"]["private"]["generator"] == GENERATOR_TAG
@@ -48,12 +57,45 @@ def test_diff_reports_unchanged_for_an_identical_event():
     assert len(plan.unchanged) == 1 and not plan.update
 
 
-def test_diff_tolerates_offset_datetimes_from_the_api():
+def test_diff_tolerates_api_echo_of_all_day_event():
+    remote = build_event(RECORD)
+    remote.update(status="confirmed", etag='"1"', kind="calendar#event")
+    plan = diff([RECORD], {remote["id"]: remote})
+    assert len(plan.unchanged) == 1
+
+
+def test_legacy_timed_event_is_converted_in_place():
     remote = build_event(RECORD)
     remote["start"] = {"dateTime": "2026-09-01T13:00:00+02:00", "timeZone": "Europe/Berlin"}
     remote["end"] = {"dateTime": "2026-09-01T13:30:00+02:00", "timeZone": "Europe/Berlin"}
     plan = diff([RECORD], {remote["id"]: remote})
-    assert len(plan.unchanged) == 1
+    assert not plan.create and not plan.delete
+    assert len(plan.update) == 1
+    desired, existing = plan.update[0]
+    assert desired["id"] == existing["id"]
+    assert desired["start"] == {"date": "2026-09-01"}
+
+
+def test_timed_events_still_compare_after_normalising_offsets():
+    remote = build_event(RECORD)
+    remote["start"] = {"dateTime": "2026-09-01T13:00:00+02:00", "timeZone": "Europe/Berlin"}
+    remote["end"] = {"dateTime": "2026-09-01T13:30:00+02:00", "timeZone": "Europe/Berlin"}
+    desired = dict(remote)
+    desired["start"] = {"dateTime": "2026-09-01T13:00:00", "timeZone": "Europe/Berlin"}
+    desired["end"] = {"dateTime": "2026-09-01T13:30:00", "timeZone": "Europe/Berlin"}
+    assert _comparable(desired) == _comparable(_normalise_remote(remote))
+
+
+@pytest.mark.parametrize(
+    "event,expected",
+    [
+        ({"start": {"date": "2026-09-01"}}, "2026-09-01"),
+        ({"start": {"dateTime": "2026-09-01T13:00:00+02:00"}}, "2026-09-01"),
+        ({}, "?"),
+    ],
+)
+def test_event_day(event, expected):
+    assert event_day(event) == expected
 
 
 def test_changed_order_updates_the_same_event():

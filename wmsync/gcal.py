@@ -21,8 +21,6 @@ log = logging.getLogger(__name__)
 
 SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
 TIMEZONE = "Europe/Berlin"
-LUNCH_START = dt.time(13, 0)
-LUNCH_END = dt.time(13, 30)
 GENERATOR_TAG = "webmenue-gcal-sync"
 GENERATOR_NOTE = "Automatisch erzeugt von webmenue-gcal-sync."
 
@@ -111,29 +109,39 @@ def build_description(record: MenuRecord) -> str:
 
 
 def build_event(record: MenuRecord) -> dict:
-    start = dt.datetime.combine(record.date, LUNCH_START)
-    end = dt.datetime.combine(record.date, LUNCH_END)
+    # All-day event: Google's end date is exclusive, so it is the following day.
+    end = record.date + dt.timedelta(days=1)
     return {
         "id": event_id(record.slot_key),
         "summary": record.title,
         "description": build_description(record),
-        "start": {"dateTime": start.isoformat(), "timeZone": TIMEZONE},
-        "end": {"dateTime": end.isoformat(), "timeZone": TIMEZONE},
+        "start": {"date": record.date.isoformat()},
+        "end": {"date": end.isoformat()},
         "extendedProperties": {
             "private": {"generator": GENERATOR_TAG, "slot": record.slot_key}
         },
     }
 
 
+def event_day(event: dict) -> str:
+    """``YYYY-MM-DD`` of an event's start, for all-day and timed events alike."""
+    start = event.get("start") or {}
+    return (start.get("date") or start.get("dateTime") or "?")[:10]
+
+
 def _comparable(event: dict) -> tuple:
     """The fields we actually care about, so unchanged runs write nothing."""
+    start = event.get("start") or {}
+    end = event.get("end") or {}
     return (
         event.get("summary"),
         event.get("description"),
-        (event.get("start") or {}).get("dateTime"),
-        (event.get("start") or {}).get("timeZone"),
-        (event.get("end") or {}).get("dateTime"),
-        (event.get("end") or {}).get("timeZone"),
+        start.get("date"),
+        start.get("dateTime"),
+        start.get("timeZone"),
+        end.get("date"),
+        end.get("dateTime"),
+        end.get("timeZone"),
     )
 
 
@@ -141,8 +149,11 @@ def _normalise_remote(event: dict) -> dict:
     """Re-express a fetched event so it compares like a freshly built one."""
 
     def side(key):
-        raw = (event.get(key) or {}).get("dateTime")
-        tz = (event.get(key) or {}).get("timeZone") or TIMEZONE
+        data = event.get(key) or {}
+        if data.get("date"):
+            return {"date": data["date"]}
+        raw = data.get("dateTime")
+        tz = data.get("timeZone") or TIMEZONE
         if not raw:
             return {"dateTime": None, "timeZone": tz}
         moment = dt.datetime.fromisoformat(raw)
@@ -233,8 +244,13 @@ class CalendarSync:
                 )
             )
             for event in response.get("items", []):
-                if event.get("id"):
-                    found[event["id"]] = event
+                # All-day events follow the calendar's own timezone, so re-check
+                # the date to keep neighbouring days out of the deletion scope.
+                if not event.get("id"):
+                    continue
+                if not first_day.isoformat() <= event_day(event) <= last_day.isoformat():
+                    continue
+                found[event["id"]] = event
             page_token = response.get("nextPageToken")
             if not page_token:
                 break

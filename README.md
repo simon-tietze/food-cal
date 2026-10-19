@@ -1,7 +1,7 @@
 # WebMenü → Google Calendar sync
 
 Scrapes the lunch items **you have actually ordered** from a WebMenü instance
-and mirrors each one into a Google Calendar as an idempotent 13:00–13:30 event.
+and mirrors each one into a Google Calendar as an idempotent all-day event.
 
 ## How the site behaves
 

@@ -85,22 +85,23 @@ def configure_logging(verbose: bool) -> None:
 
 
 def _log_plan(plan, records) -> None:
+    from .gcal import event_day
+
     for record in records:
         log.debug("scraped %s %s: %s", record.date, record.line, record.title)
     for event in plan.create:
-        log.info("CREATE  %s  %s", event["start"]["dateTime"][:10], event["summary"])
+        log.info("CREATE  %s  %s", event_day(event), event["summary"])
     for desired, existing in plan.update:
         log.info(
             "UPDATE  %s  %r -> %r",
-            desired["start"]["dateTime"][:10],
+            event_day(desired),
             existing.get("summary"),
             desired["summary"],
         )
     for event in plan.unchanged:
-        log.info("UNCHANGED %s  %s", event["start"]["dateTime"][:10], event["summary"])
+        log.info("UNCHANGED %s  %s", event_day(event), event["summary"])
     for event in plan.delete:
-        start = (event.get("start") or {}).get("dateTime", "?")[:10]
-        log.info("DELETE  %s  %s", start, event.get("summary"))
+        log.info("DELETE  %s  %s", event_day(event), event.get("summary"))
 
 
 def run(args) -> int:
